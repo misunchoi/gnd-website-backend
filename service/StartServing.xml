@@ -1,0 +1,27 @@
+<services>
+    <!-- adds service content from Start Serving Page to PartyContent -->
+    <service verb="create" noun="addServingContent">
+        <in-parameters>
+            <parameter name="firstName"/>
+            <parameter name="lastName"/>
+            <parameter name="address1"/>
+            <parameter name="unitNumber"/>
+            <parameter name="city"/>
+            <parameter name="stateProvinceGeoId"/>
+            <parameter name="postalCode"/>
+            <parameter name="contactNumber"/>
+            <parameter name="emailAddress"/>
+            <parameter name="contentLocation"/>
+            <parameter name="description"/>
+        </in-parameters>
+
+        <out-parameters>
+            <parameter name="partyId"/>
+        </out-parameters>
+
+        <actions>
+            <service-call name="mantle.party.PartyServices.create#PersonCustomer" in-map="context" out-map="context"/>
+            <service-call name="create#mantle.party.PartyContent" in-map="[partyId:partyId, contentLocation:contentLocation, description:description]" out-map="context"/>
+        </actions>
+    </service>
+</services>
