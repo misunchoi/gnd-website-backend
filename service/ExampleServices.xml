@@ -1,16 +1,20 @@
 <services>
-    <service verb="create" noun="Person">
+    <!-- adds emailContactMechId to contactListParty -->
+    <service verb="create" noun="addNewsletterEmail">
         <in-parameters>
-            <auto-parameters entity-name="mantle.party.Person" include="nonpk"/>
-            <parameter name="firstName" required="true"/>
-            <parameter name="lastName" required="true"/>
+            <parameter name="firstName"/>
+            <parameter name="lastName"/>
+            <parameter name="emailAddress"/>  
         </in-parameters>
 
         <out-parameters>
+            <parameter name="partyId"/>
+            <parameter name="emailContactMechId"/>
         </out-parameters>
 
         <actions>
-            <service-call name="create#mantle.party.Person" out-map="context"/>
+            <service-call name="mantle.party.PartyServices.create#PersonCustomer" in-map="context" out-map="context"/>
+            <service-call name="create#mantle.marketing.contact.ContactListParty" in-map="[partyId:partyId, contactListId:'newsletter', preferredContactMechId:emailContactMechId]" out-map="context"/>
         </actions>
     </service>
 </services>
