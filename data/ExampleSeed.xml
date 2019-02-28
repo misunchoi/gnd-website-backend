@@ -9,4 +9,7 @@
 
     </artifactGroups>
   
+    <mantle.marketing.contact.ContactList contactListId="newsletter"/>
+
+
 </entity-facade-xml>
