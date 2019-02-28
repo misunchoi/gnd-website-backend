@@ -1,5 +1,5 @@
 <services>
-    <!-- adds service content to PartyContent and email to ContactListParty -->
+    <!-- adds service content to PartyNote and email to ContactListParty -->
     <service verb="create" noun="addNewsletterEmail">
         <in-parameters>
             <parameter name="firstName"/>
@@ -11,8 +11,8 @@
             <parameter name="postalCode"/>
             <parameter name="contactNumber"/>
             <parameter name="emailAddress"/>
-            <parameter name="contentLocation"/>
-            <parameter name="description"/>
+            <parameter name="service"/>
+            <parameter name="comment"/>
         </in-parameters>
 
         <out-parameters>
@@ -22,7 +22,8 @@
 
         <actions>
             <service-call name="mantle.party.PartyServices.create#PersonCustomer" in-map="context" out-map="context"/>
-            <service-call name="create#mantle.party.PartyContent" in-map="[partyId:partyId, contentLocation:contentLocation, description:description]" out-map="context"/>
+            <service-call name="create#mantle.party.PartyNote" in-map="[partyId:partyId, noteText: 'Service: ' + 
+            service + '; Comments: ' + comment]" out-map="context"/>
             <service-call name="create#mantle.marketing.contact.ContactListParty" in-map="[partyId:partyId, contactListId:'newsletter', preferredContactMechId:emailContactMechId]" out-map="context"/>
         </actions>
     </service>
