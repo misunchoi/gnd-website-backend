@@ -14,13 +14,26 @@
         </script>
     </always-actions>
 
-    <transition name="createPersonCustomer" require-session-token="false" method="post" >
+    <!-- <transition name="createPersonCustomer" require-session-token="false" method="post" >
         <service-call name="mantle.party.PartyServices.create#PersonCustomer" in-map="context" out-map="context"/>
+        <default-response url="."/>
+    </transition> -->
+
+    <!-- Start Serving Page: create PersonCustomer with service description -->
+    <transition name="addServingContent" require-session-token="false" method="post" >
+        <service-call name="StartServing.create#addServingContent" in-map="context" out-map="context"/>
         <default-response url="."/>
     </transition>
 
-    <transition name="createContactList" require-session-token="false" method="post" >
-        <service-call name="create#mantle.marketing.contact.ContactList" in-map="context" out-map="context"/>
+    <!-- Start Serving Page: add PersonCustomer to newsletter ContactList -->
+    <transition name="addNewsletterEmail" require-session-token="false" method="post" >
+        <service-call name="StartServingNewsletter.create#addNewsletterEmail" in-map="context" out-map="context"/>
+        <default-response url="."/>
+    </transition>
+
+    <!-- newsletter ContactList: put emails into an array -->
+    <transition name="addNewsletterEmailArray" require-session-token="false" method="post" >
+        <service-call name="NewsletterEmails.create#addNewsletterEmailArray" in-map="context" out-map="context"/>
         <default-response url="."/>
     </transition>
 
