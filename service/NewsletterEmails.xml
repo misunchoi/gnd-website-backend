@@ -1,0 +1,30 @@
+<services>
+    <!-- creates an array of the emails from ContactListParty -->
+    <service verb="create" noun="addNewsletterEmailArray">
+
+        <actions>
+            <log message="-----------------------------------------"/>
+
+            <entity-find entity-name="mantle.marketing.contact.ContactListParty" list="newsletterEmailList"/>
+            <set field="newsletterEmailArray" from="[]"/>
+
+            <entity-find entity-name="mantle.party.contact.ContactMech" list="contactMechList"/>
+            <set field="contactMechArray" from="[]"/>
+
+            <iterate list="newsletterEmailList" entry="emailList">
+              <script>
+                newsletterEmailArray.add(emailList.preferredContactMechId)
+              </script>
+              
+              <iterate list="contactMechList" entry="contactList">
+                <if condition="emailList.preferredContactMechId == contactList.contactMechId">
+                  <script>contactMechArray.add(contactList.infoString)</script>
+                </if>
+              </iterate>
+            </iterate>
+
+            <log message="contactMechArray: ${contactMechArray}"/>
+        </actions>
+
+    </service>
+</services>
