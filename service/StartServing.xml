@@ -22,7 +22,7 @@
         <actions>
             <service-call name="mantle.party.PartyServices.create#PersonCustomer" in-map="context" out-map="context"/>
             <service-call name="create#mantle.party.PartyNote" in-map="[partyId:partyId, noteText: 'Service: ' + 
-            service + '; Comments: ' + comment]" out-map="context"/>
+            service + ';   Comments: ' + comment]" out-map="context"/>
         </actions>
     </service>
 </services>
